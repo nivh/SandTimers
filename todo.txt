@@ -1,2 +1,4 @@
-# bugs:
-(B) fix number of tries in the output, for example: 1 sand timer of 2 and goal of 10- yields "Found 1 solutions out of 11 tries" instead of only 1 try.
+(B) @bug fix number of tries in the output, for example: 1 sand timer of 2 and goal of 10- yields "Found 1 solutions out of 11 tries" instead of only 1 try.
+(D) @todo highlight (bold) the delta changes in each step of the solution, to make it more clear.
+(A) @todo add caching to the solution tree calculator.
+(A) @todo separate the sand timers logic into a separate file (maybe a class)

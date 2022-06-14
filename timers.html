@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sand Timers Riddle Creator</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='sand-timers.css'>
+    <script src='sand-timers.js'></script>
+</head>
+<body>
+    <h1>Sand Timers Riddle Solver</h1>
+    <h3>The Sand Timers:</h3>
+    <div id="sandTimersDiv"></div>
+    <input type="number" id='add-timer-input' min='1'>
+    <button onclick="onAddSandTimerClick()">Add Sand Timer</button><br />
+    Target time: <input type="number" id='target-time-input' min='1' value='9'><br />
+    Maximum sessions: <input type="number" id='maximum-sessions-input' min=1 value='10'><br />
+    <button onclick="onClearTimers()">Clear Timers</button><br />
+    <button onclick="onRunAppButton()">Start</button>
+    <hr />
+    <div id="outputDiv"></div>
+    
+</body>
+</html>

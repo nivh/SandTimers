@@ -1,0 +1,10 @@
+{
+    "cSpell.ignoreWords": [
+        "Sandtimers"
+    ],
+    "files.exclude": {
+        "**/*.js": { "when": "$(basename).ts" },
+        "**/**.js": { "when": "$(basename).tsx" }
+    }
+
+}

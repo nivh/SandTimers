@@ -4,6 +4,7 @@ let targetTime: number;
 let uiTimersArrayGroup: SandTimersGroup;
 let solutionsArray: State[] = [];
 let totalStates = 0;
+let totalAttempts = 0;
 
 class SandTimer {
 	private _duration: number;
@@ -53,8 +54,8 @@ class SandTimer {
 
 class SandTimersGroup {
 	private _SandTimersArray: SandTimer[] = [];
-	public addFromOtherSandTimer (theSandTimer: SandTimer): void {
-		let newTimer=new SandTimer(theSandTimer.getDuration());
+	public addFromOtherSandTimer(theSandTimer: SandTimer): void {
+		let newTimer = new SandTimer(theSandTimer.getDuration());
 		newTimer.copyFrom(theSandTimer);
 		this._SandTimersArray.push(theSandTimer);
 	};
@@ -67,7 +68,7 @@ class SandTimersGroup {
 	public deleteAllTimers(): void {
 		this._SandTimersArray.length = 0;
 	}
-	public removeSandTimerByIndex (timerIndex:number) {
+	public removeSandTimerByIndex(timerIndex: number) {
 		this._SandTimersArray.splice(timerIndex - 1, 1);
 	}
 	public getArrayCopy(): SandTimer[] {
@@ -152,16 +153,23 @@ function printStatePath(state: State) {
 
 function printBestSolution() {
 
+	
 	if (totalStates <= 0) {
 		console.error('no states!');
+		return;
+	}
+	if (totalAttempts <=0) {
+		console.error('no attempts!');
 		return;
 	}
 	if (solutionsArray.length <= 0) {
 		logText(`${totalStates} tries, No solutions!`, "blue");
 		return;
 	}
-	let percent = solutionsArray.length / totalStates * 100;
-	logText(`Found ${solutionsArray.length} solutions out of ${totalStates} tries. (${percent}%)`, "blue");
+	logText(`Total Attempts: ${totalAttempts}`, "purple");
+	logText(`Total States: ${totalStates}`, "purple");
+	let percent = solutionsArray.length / totalAttempts * 100;
+	logText(`Found ${solutionsArray.length} solutions out of ${totalAttempts} attempts. (${percent}%) (the smaller the better)`, "blue");
 
 
 	logText(`best solution:`, "green");
@@ -256,15 +264,18 @@ function buildStatesBranch(aState: State, justFlow: boolean = false) {
 	// stop conditions:
 	if (aState.sessions >= MAX_SESSIONS) {
 		//logText('Reached max sessions');
+		totalAttempts++;
 		return;
 	}
 	if (aState.minutesPassed > targetTime) {
 		//console.log('passed target time');
+		totalAttempts++;
 		return;
 	}
 	if (aState.minutesPassed === targetTime) {
 		// reached target!
 		//logText('reached goal!');
+		totalAttempts++;
 		solutionsArray.push(aState);
 		return;
 	}
@@ -352,6 +363,7 @@ async function onRunAppButton() {
 	let curState = new State(uiTimersArrayGroup.getArrayCopy(), 0, 0, 0, 0, null);
 	solutionsArray = [];
 	totalStates = 0;
+	totalAttempts = 0;
 	//printState(curState);
 	clearLog();
 	logText("Building possible solutions tree...", "blue");
